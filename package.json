@@ -1,0 +1,14 @@
+{
+  "name": "online-shop-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Motaz HM",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
