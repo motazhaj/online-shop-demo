@@ -36,7 +36,7 @@ app.use(async (req, res, next) => {
   const user = req.session.user;
   const isAuthenticated = req.session.isAuthenticated;
 
-  if (!isAuthenticated) {
+  if (!user || !isAuthenticated) {
     return next();
   }
 

@@ -10,7 +10,20 @@ router.get("/", (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-  res.render("signup");
+  let sessionInputData = req.session.inputData;
+  if (!sessionInputData) {
+    sessionInputData = {
+      hasError: false,
+      message: "",
+      name: "",
+      email: "",
+    };
+  }
+
+  req.session.inputData = null;
+
+  console.log(sessionInputData);
+  res.render("signup", { inputData: sessionInputData });
 });
 
 router.post("/signup", async (req, res) => {
@@ -20,21 +33,34 @@ router.post("/signup", async (req, res) => {
   const inPassword = userData.password;
   const inConfirmPassword = userData["confirm-password"];
 
+  req.session.inputData = {
+    hasError: false,
+    message: "",
+    name: inName,
+    email: inEmail,
+  };
+
   // Validation
   if (!inName || !inEmail || !inPassword || !inConfirmPassword) {
-    console.log("Missing input");
-    return res.redirect("/signup");
+    req.session.inputData.hasError = true;
+    req.session.inputData.message = "Please fill all fields";
+    req.session.save(() => {
+      return res.redirect("/signup");
+    });
   }
   if (!inEmail.includes("@")) {
-    console.log("Email Incorrect");
+    req.session.inputData.hasError = true;
+    req.session.inputData.message = "Email Incorrect";
     return res.redirect("/signup");
   }
   if (inPassword.trim().length < 6) {
-    console.log("Password is not long enough");
+    req.session.inputData.hasError = true;
+    req.session.inputData.message = "Password is not long enough";
     return res.redirect("/signup");
   }
   if (inPassword !== inConfirmPassword) {
-    console.log("Passwords dont match");
+    req.session.inputData.hasError = true;
+    req.session.inputData.message = "Passwords do not match";
     return res.redirect("/signup");
   }
   const existingUser = await db
@@ -43,7 +69,8 @@ router.post("/signup", async (req, res) => {
     .findOne({ email: inEmail });
 
   if (existingUser) {
-    console.log("User already exists");
+    req.session.inputData.hasError = true;
+    req.session.inputData.message = "User already exists";
     return res.redirect("/signup");
   }
 
@@ -55,7 +82,7 @@ router.post("/signup", async (req, res) => {
   };
 
   await db.getDb().collection("users").insertOne(user);
-  res.redirect("/");
+  res.redirect("/login");
 });
 
 router.get("/login", async (req, res) => {
@@ -67,24 +94,36 @@ router.post("/login", async (req, res) => {
   const inEmail = userData.email;
   const inPassword = userData.password;
 
+  req.session.inputData = {
+    hasError: false,
+    message: "",
+    email: inEmail,
+  };
+
   const existingUser = await db
     .getDb()
     .collection("users")
     .findOne({ email: inEmail });
   if (!existingUser) {
-    console.log("Email doesnt exist");
-    return res.redirect("/login");
+    req.session.inputData.hasError = true;
+    req.session.inputData.message = "User doesnt exist";
+    req.session.save(() => {
+      return res.redirect("/login");
+    });
   }
 
   const passwordMatch = await bcrypt.compare(inPassword, existingUser.password);
 
   if (!passwordMatch) {
-    console.log("Wrong Password");
-    return res.redirect("/login");
+    req.session.inputData.hasError = true;
+    req.session.inputData.message = "Wrong Password";
+    req.session.save(() => {
+      return res.redirect("/login");
+    });
   }
 
   req.session.isAuthenticated = true;
-  res.redirect("/")
+  res.redirect("/");
 });
 
 module.exports = router;
