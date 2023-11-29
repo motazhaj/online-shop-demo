@@ -58,4 +58,33 @@ router.post("/signup", async (req, res) => {
   res.redirect("/");
 });
 
+router.get("/login", async (req, res) => {
+  res.render("login");
+});
+
+router.post("/login", async (req, res) => {
+  const userData = req.body;
+  const inEmail = userData.email;
+  const inPassword = userData.password;
+
+  const existingUser = await db
+    .getDb()
+    .collection("users")
+    .findOne({ email: inEmail });
+  if (!existingUser) {
+    console.log("Email doesnt exist");
+    return res.redirect("/login");
+  }
+
+  const passwordMatch = await bcrypt.compare(inPassword, existingUser.password);
+
+  if (!passwordMatch) {
+    console.log("Wrong Password");
+    return res.redirect("/login");
+  }
+
+  req.session.isAuthenticated = true;
+  res.redirect("/")
+});
+
 module.exports = router;
