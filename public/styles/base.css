@@ -76,10 +76,14 @@ body {
   height: 3rem;
   font-size: 2rem;
   margin: 0.5rem 0;
+  padding: 0.2rem 1rem;
   background-color: #11488f;
   border-color: #171d25;
   border-style: solid;
   border-radius: 16px;
   cursor: pointer;
+}
 
+.default-button:hover {
+  background-color: #1f64be;
 }
