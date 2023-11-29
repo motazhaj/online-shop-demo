@@ -1,0 +1,19 @@
+<%- include('includes/head.ejs', { title: "Online Shop Demo" }) %>
+    <link rel="stylesheet" href="/styles/form.css">
+</head>
+<body>
+    <%- include("includes/navbar.ejs")  %>
+    <section id="headline"><h1>Welcome to the shop</h1></section>
+    <section>
+        <form class="signup-form" action="signup" method="post">
+            <h1>Create your account</h1>
+            <input type="text" placeholder="Name" name="name" id="name">
+            <input type="email" placeholder="Email" name="email" id="email">
+            <input type="password" placeholder="Password" name="password" id="password">
+            <input type="password" placeholder="Confirm Password" name="confirm-password" id="confirm-password">
+            <button class="default-button" type="submit">Create Account</button>
+            
+        </form>
+    </section>
+</body>
+</html>
