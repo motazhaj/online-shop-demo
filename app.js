@@ -35,12 +35,15 @@ app.use(
 app.use(async (req, res, next) => {
   const user = req.session.user;
   const isAuthenticated = req.session.isAuthenticated;
+  console.log(isAuthenticated)
+  console.log(user)
+
 
   if (!user || !isAuthenticated) {
     return next();
   }
 
-  const userData = await db.getDb().collection("users").fineOnde({
+  const userData = await db.getDb().collection("users").findOne({
     _id: user.id,
   });
   const isAdmin = userData.isAdmin;
