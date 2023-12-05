@@ -5,7 +5,7 @@ const session = require("express-session");
 const mongodbStore = require("connect-mongodb-session");
 
 const db = require("./data/database");
-const shopRoutes = require("./shop/routes");
+const shopRoutes = require("./routes/auth.routes");
 
 const MongoDBStore = mongodbStore(session);
 
@@ -35,9 +35,8 @@ app.use(
 app.use(async (req, res, next) => {
   const user = req.session.user;
   const isAuthenticated = req.session.isAuthenticated;
-  console.log(isAuthenticated)
-  console.log(user)
-
+  console.log(isAuthenticated);
+  console.log(user);
 
   if (!user || !isAuthenticated) {
     return next();
@@ -51,6 +50,10 @@ app.use(async (req, res, next) => {
   res.locals.isAuthenticated = isAuthenticated;
   res.locals.isAdmin = isAdmin;
   next();
+});
+
+app.get("/", (req, res) => {
+  res.render("customer/shop");
 });
 
 app.use(shopRoutes);
