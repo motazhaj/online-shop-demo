@@ -2,13 +2,19 @@
   <h1 id="nav-logo">Stuff for Sale</h1>
   <ul id="nav-items">
     <li><a href="/">All Products</a></li>
+
+    <% if (locals.isAdmin) { %>
     <li><a href="/dashboard">Dashboard</a></li>
-    <li><a href="">My Cart</a></li>
+    <% } %>
     <li><a href="">About</a></li>
+    <% if (!locals.isAuthenticated) { %>
     <li><a href="/signup">Sign Up</a></li>
     <li><a href="login">Log In</a></li>
+    <% } %> <% if (locals.isAuthenticated) { %>
+    <li><a href="">My Cart</a></li>
     <li>
-      <form action="" method="POST"><button>Log Out</button></form>
+      <form action="logout" method="POST"><button>Log Out</button></form>
     </li>
+    <% } %>
   </ul>
 </nav>
