@@ -22,7 +22,6 @@ router.get("/signup", (req, res) => {
 
   req.session.inputData = null;
 
-  console.log(sessionInputData);
   res.render("signup", { inputData: sessionInputData });
 });
 
@@ -82,7 +81,10 @@ router.post("/signup", async (req, res) => {
   };
 
   await db.getDb().collection("users").insertOne(user);
-  res.redirect("/login");
+  req.session.save(() => {
+    res.redirect("/login");
+  });
+  return;
 });
 
 router.get("/login", async (req, res) => {
@@ -108,8 +110,9 @@ router.post("/login", async (req, res) => {
     req.session.inputData.hasError = true;
     req.session.inputData.message = "User doesnt exist";
     req.session.save(() => {
-      return res.redirect("/login");
+      res.redirect("/login");
     });
+    return;
   }
 
   const passwordMatch = await bcrypt.compare(inPassword, existingUser.password);
@@ -118,12 +121,29 @@ router.post("/login", async (req, res) => {
     req.session.inputData.hasError = true;
     req.session.inputData.message = "Wrong Password";
     req.session.save(() => {
-      return res.redirect("/login");
+      res.redirect("/login");
     });
+    return;
   }
 
   req.session.isAuthenticated = true;
-  res.redirect("/");
+  req.session.save(() => {
+    res.redirect("/");
+  });
+});
+
+router.get("/dashboard", (req, res) => {
+  res.render("dashboard");
+});
+
+router.get("/add-product", (req, res, next) => {
+  res.render("add-product");
+});
+
+router.post("/add-product", (req, res) => {
+  const productData = req.body;
+
+  res.render("add-product");
 });
 
 module.exports = router;
