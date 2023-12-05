@@ -6,6 +6,7 @@
   display: flex;
   background-color: rgba(255, 255, 255, 0.179);
   flex-direction: column;
+  box-shadow: var(--shadow-default);
 }
 
 form h1 {
