@@ -58,6 +58,11 @@ app.get("/", (req, res) => {
 
 app.use(shopRoutes);
 
-db.connectToDatabase().then(() => {
-  app.listen(3000);
-});
+db.connectToDatabase()
+  .then(() => {
+    app.listen(3000);
+  })
+  .catch((error) => {
+    console.log("Failed to connect to Database");
+    console.log(error);
+  });
