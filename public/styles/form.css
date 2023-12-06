@@ -10,21 +10,26 @@
 }
 
 form h1 {
-    font-size: 2rem;
-    margin: auto;
+  font-size: 2rem;
+  margin: auto;
 }
 
 form p {
   margin: auto;
 }
 
-input {
+input,
+select {
   height: 2.5rem;
   font-size: 1.4rem;
   margin: 0.5rem 0;
-  padding: .4rem;
+  padding: 0.4rem;
   border-radius: 8px;
   border-width: 0;
   background-color: #f3f8ff;
+  color: black;
+}
+
+option {
   color: black;
 }
