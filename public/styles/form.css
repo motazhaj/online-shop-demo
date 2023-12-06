@@ -9,6 +9,13 @@
   box-shadow: var(--shadow-default);
 }
 
+hr{
+  margin: 1rem 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  border: none;
+}
+
 form h1 {
   font-size: 2rem;
   margin: auto;
