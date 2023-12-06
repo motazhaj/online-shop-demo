@@ -40,3 +40,7 @@ select {
 option {
   color: black;
 }
+
+.error-message{
+  color: var(--color-secondary);
+}

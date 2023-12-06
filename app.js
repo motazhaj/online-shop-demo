@@ -1,10 +1,12 @@
 const path = require("path");
 
 const express = require("express");
+const csrf = require("csurf");
 const session = require("express-session");
 const mongodbStore = require("connect-mongodb-session");
 
 const db = require("./data/database");
+const addCsrfToken = require("./middlewares/csrf-token");
 const shopRoutes = require("./routes/auth.routes");
 
 const MongoDBStore = mongodbStore(session);
@@ -31,6 +33,10 @@ app.use(
     store: sessionStore,
   })
 );
+
+app.use(csrf());
+
+app.use(addCsrfToken);
 
 app.use(async (req, res, next) => {
   const user = req.session.user;
