@@ -1,5 +1,5 @@
 const User = require("../models/user.model");
-const authUtil = require("../utilities/authentication")
+const authUtil = require("../utilities/authentication");
 
 function getLogin(req, res) {
   let sessionInputData = req.session.inputData;
@@ -48,10 +48,9 @@ async function postLogin(req, res) {
     return;
   }
 
-  authUtil.createUserSession(req,existingUser, () =>{
-    res.redirect("/")
-  })
-
+  authUtil.createUserSession(req, existingUser, () => {
+    res.redirect("/");
+  });
 }
 
 function getSignup(req, res) {
@@ -149,9 +148,15 @@ async function postSignup(req, res) {
   return;
 }
 
+async function postLogout(req, res) {
+  authUtil.destroyUserAuthSession(req);
+  res.redirect("/");
+}
+
 module.exports = {
   getLogin: getLogin,
   postLogin: postLogin,
   getSignup: getSignup,
   postSignup: postSignup,
+  postLogout: postLogout,
 };
