@@ -95,25 +95,31 @@ async function postSignup(req, res) {
     req.session.inputData.message = "Please fill all fields";
     req.session.save(() => {
       res.redirect("/signup");
-      return;
     });
+    return;
   }
   if (!inEmail.includes("@")) {
     req.session.inputData.hasError = true;
     req.session.inputData.message = "Email Incorrect";
-    res.redirect("/signup");
+    req.session.save(() => {
+      res.redirect("/signup");
+    });
     return;
   }
   if (inPassword.trim().length < 6) {
     req.session.inputData.hasError = true;
     req.session.inputData.message = "Password is not long enough";
-    res.redirect("/signup");
+    req.session.save(() => {
+      res.redirect("/signup");
+    });
     return;
   }
   if (inPassword !== inConfirmPassword) {
     req.session.inputData.hasError = true;
     req.session.inputData.message = "Passwords do not match";
-    res.redirect("/signup");
+    req.session.save(() => {
+      res.redirect("/signup");
+    });
     return;
   }
   const existingUser = await db
@@ -124,13 +130,15 @@ async function postSignup(req, res) {
   if (existingUser) {
     req.session.inputData.hasError = true;
     req.session.inputData.message = "User already exists";
-    res.redirect("/signup");
+    req.session.save(() => {
+      res.redirect("/signup");
+    });
     return;
   }
 
   const user = new User(inEmail, inPassword, inName, inCity, inAddress);
 
-  await user.signup()
+  await user.signup();
 
   req.session.save(() => {
     res.redirect("/login");
