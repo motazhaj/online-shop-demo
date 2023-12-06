@@ -7,6 +7,8 @@
     <section>
         <form class="default-form" action="add-product" method="post">
             <h1>Add a product</h1>
+            <p class="error-message"><%= inputData.message %></p>
+            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
             <input type="text" placeholder="Product name" name="productName" id="productName" required>
             <input type="file" name="productImage" id="productImage" required>
             <input type="text" placeholder="Product describtion" name="productdes" id="productdes" required>

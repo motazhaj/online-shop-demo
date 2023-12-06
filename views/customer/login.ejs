@@ -7,6 +7,8 @@
     <section>
         <form class="default-form" action="login" method="post">
             <h1>Create your account</h1>
+            <p class="error-message"><%= inputData.message %></p>
+            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
             <input type="email" placeholder="Email" name="email" id="email" required>
             <input type="password" placeholder="Password" name="password" id="password" required>
             <button class="default-button" type="submit">Sign in</button>
