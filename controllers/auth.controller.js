@@ -37,7 +37,7 @@ async function postLogin(req, res) {
     return;
   }
 
-  const passwordMatch = user.matchPassword(existingUser.password);
+  const passwordMatch = await user.matchPassword(existingUser.password);
 
   if (!passwordMatch) {
     req.session.inputData.hasError = true;
