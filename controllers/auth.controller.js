@@ -16,9 +16,10 @@ function getLogin(req, res) {
   res.render("customer/login", { inputData: sessionInputData });
 }
 
-async function postLogin(req, res) {
+async function postLogin(req, res, next) {
   const userData = req.body;
   const user = new User(userData.email, userData.password);
+  let existingUser;
 
   req.session.inputData = {
     hasError: false,
@@ -26,7 +27,12 @@ async function postLogin(req, res) {
     email: userData.email,
   };
 
-  const existingUser = await user.getUserByEmail();
+  try {
+    existingUser = await user.getUserByEmail();
+  } catch (error) {
+    next();
+    return;
+  }
 
   if (!existingUser) {
     req.session.inputData.hasError = true;
@@ -69,7 +75,7 @@ function getSignup(req, res) {
   res.render("customer/signup", { inputData: sessionInputData });
 }
 
-async function postSignup(req, res) {
+async function postSignup(req, res, next) {
   const userData = req.body;
   const inEmail = userData.email;
   const inPassword = userData.password;
@@ -77,6 +83,8 @@ async function postSignup(req, res) {
   const inName = userData.name;
   const inCity = userData.city;
   const inAddress = userData.address;
+
+  let existingUser;
 
   req.session.inputData = {
     hasError: false,
@@ -127,7 +135,13 @@ async function postSignup(req, res) {
     });
     return;
   }
-  const existingUser = await user.getUserByEmail();
+
+  try {
+    existingUser = await user.getUserByEmail();
+  } catch (error) {
+    next();
+    return;
+  }
 
   if (existingUser) {
     req.session.inputData.hasError = true;
@@ -140,7 +154,12 @@ async function postSignup(req, res) {
 
   const user = new User(inEmail, inPassword, inName, inCity, inAddress);
 
-  await user.signup();
+  try {
+    await user.signup();
+  } catch (error) {
+    next();
+    return;
+  }
 
   req.session.save(() => {
     res.redirect("/login");
