@@ -1,16 +1,17 @@
 .default-form {
   width: 600px;
+  max-width: 90%;
   border-radius: 32px;
   padding: 2rem;
   margin: auto;
   display: flex;
-  background-color: rgba(255, 255, 255, 0.179);
+  background-color: rgba(255, 255, 255, 0.2);
   flex-direction: column;
   box-shadow: var(--shadow-default);
 }
 
-hr{
-  margin: 1rem 0;
+form hr {
+  margin: 0.8rem 0;
   height: 2px;
   background-color: var(--color-primary);
   border: none;
@@ -18,11 +19,13 @@ hr{
 
 form h1 {
   font-size: 2rem;
-  margin: auto;
+  margin-inline: auto;
+  margin-bottom: .5rem;
 }
 
 form p {
   margin: auto;
+  font-size: 1rem;
 }
 
 input,
@@ -41,6 +44,29 @@ option {
   color: black;
 }
 
-.error-message{
+.error-message {
   color: var(--color-secondary);
+}
+
+@media screen and (max-width: 1200px) {
+  .default-form {
+    border-radius: 16px;
+  }
+
+  form h1 {
+    font-size: 1.6rem;
+    margin-inline: auto;
+  }
+
+  input,
+  select {
+    height: 2rem;
+    font-size: 1.2rem;
+    margin: 0.3rem 0;
+  }
+
+  form p {
+    margin: auto;
+    font-size: .8rem;
+  }
 }

@@ -11,70 +11,24 @@
 * {
   margin: 0;
   padding: 0;
+  text-decoration: none;
   color: white;
   font-family: "Rubik", sans-serif;
+  box-sizing: border-box;
+}
+
+a:hover {
+  color: #5db500;
+  transition: 200ms;
 }
 
 body {
+  width: 1200px;
+  max-width: 95%;
+  margin: 0 auto;
   background-color: var(--color-background);
 }
 
-#navbar {
-  height: 3rem;
-  background-color: var(--color-background);
-  padding: 0px 6%;
-  margin: 0;
-  border-width: 6px;
-  border-color: var(--color-secondary);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#nav-items {
-  list-style: none;
-  width: 66%;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-#nav-items * {
-  text-decoration: none;
-  background: none;
-  border-width: 0;
-}
-
-#nav-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.side-navbar-toggle {
-  height: 2rem;
-}
-#side-navbar {
-  display: none;
-  position: fixed;
-  width: 60%;
-  height: 100%;
-  padding: 3.5rem;
-  top: 0;
-  right: 0;
-  background-color: var(--color-background-50);
-  backdrop-filter: blur(10px);
-  text-align: center;
-}
-#side-navbar * {
-  list-style: none;
-  text-align: right;
-  color: white;
-  margin: 2rem 0;
-}
 #headline {
   padding: 3rem 0;
   display: flex;
@@ -83,13 +37,16 @@ body {
 }
 
 #headline h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 #products-list {
   list-style: none;
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  width: fit-content;
+  margin-inline: auto;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
 }
 
 .product {
@@ -99,8 +56,8 @@ body {
   border-radius: 16px;
   margin: auto;
   background-color: var(--color-primary-dark);
-  width: 300px;
-  height: 400px;
+  width: 200px;
+  height: 200px;
   box-shadow: var(--shadow-default);
 }
 
@@ -119,4 +76,44 @@ body {
 
 .default-button:hover {
   background-color: var(--color-secondary);
+}
+
+@media screen and (max-width: 1350px) {
+ 
+  .product {
+    height: 180px;
+    width: 180px;
+  }
+  #headline h1 {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  #products-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 850px) {
+  #products-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .default-button {
+    height: 2rem;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  #products-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .product {
+    height: 150px;
+    width: 150px;
+  }
+  #headline h1 {
+    font-size: 1.5rem;
+  }
 }
