@@ -74,5 +74,5 @@ db.connectToDatabase()
   .catch((error) => {
     console.log("Failed to connect to Database");
     console.log(error);
-    res.render("shared/500");
+    res.status(500).render("shared/500");
   });
