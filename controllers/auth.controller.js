@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const authUtil = require("../utilities/authentication");
+const validation = require("../utilities/validation");
 
 function getLogin(req, res) {
   let sessionInputData = req.session.inputData;
@@ -77,82 +78,41 @@ function getSignup(req, res) {
 
 async function postSignup(req, res, next) {
   const userData = req.body;
-  const inEmail = userData.email;
-  const inPassword = userData.password;
-  const inConfirmPassword = userData["confirm-password"];
-  const inName = userData.name;
-  const inCity = userData.city;
-  const inAddress = userData.address;
+  let validateBool;
 
-  let existingUser;
+  validateBool = validation.validateSignupData(req, userData);
 
-  req.session.inputData = {
-    hasError: false,
-    message: "",
-    name: inName,
-    email: inEmail,
-    city: inCity,
-    address: inAddress,
-  };
+  console.log(validateBool);
 
-  // Validation
-  if (
-    !inName ||
-    !inEmail ||
-    !inPassword ||
-    !inConfirmPassword ||
-    !inCity ||
-    !inAddress
-  ) {
-    req.session.inputData.hasError = true;
-    req.session.inputData.message = "Please fill all fields";
-    req.session.save(() => {
-      res.redirect("/signup");
-    });
-    return;
-  }
-  if (!inEmail.includes("@")) {
-    req.session.inputData.hasError = true;
-    req.session.inputData.message = "Email Incorrect";
-    req.session.save(() => {
-      res.redirect("/signup");
-    });
-    return;
-  }
-  if (inPassword.trim().length < 6) {
-    req.session.inputData.hasError = true;
-    req.session.inputData.message = "Password is not long enough";
-    req.session.save(() => {
-      res.redirect("/signup");
-    });
-    return;
-  }
-  if (inPassword !== inConfirmPassword) {
-    req.session.inputData.hasError = true;
-    req.session.inputData.message = "Passwords do not match";
+  if (!validateBool) {
     req.session.save(() => {
       res.redirect("/signup");
     });
     return;
   }
 
+  const user = new User(
+    userData.email,
+    userData.password,
+    userData.name,
+    userData.city,
+    userData.address
+  );
+
+  let existingUserBool;
   try {
-    existingUser = await user.getUserByEmail();
+    existingUserBool = await validation.validateExistingUser(req, user);
   } catch (error) {
     next();
     return;
   }
 
-  if (existingUser) {
-    req.session.inputData.hasError = true;
-    req.session.inputData.message = "User already exists";
+  if (existingUserBool) {
     req.session.save(() => {
       res.redirect("/signup");
     });
     return;
   }
-
-  const user = new User(inEmail, inPassword, inName, inCity, inAddress);
 
   try {
     await user.signup();
