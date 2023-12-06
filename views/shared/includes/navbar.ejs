@@ -14,7 +14,6 @@
     <li><a href="/signup">Sign Up</a></li>
     <li><a href="/login">Log In</a></li>
     <% } %> <% if (locals.isAuth) { %>
-    
     <li>
       <form action="/logout" method="POST">
         <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>" />
@@ -23,4 +22,37 @@
     </li>
     <% } %>
   </ul>
+  <a href="#side-navbar"
+    ><img class="side-navbar-toggle" src="images/navbar/menu.png" alt="Logo"
+  /></a>
 </nav>
+<aside id="side-navbar">
+  <ul id="side-nav-items">
+    <a href=""
+      ><img
+        class="side-navbar-toggle"
+        src="images/navbar/close.png"
+        alt="close button"
+    /></a>
+    <li><a href="/">All Products</a></li>
+
+    <% if (locals.isAdmin) { %>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <% } %>
+
+    <li><a href="">About</a></li>
+    <li><a href="/cart">My Cart</a></li>
+
+    <% if (!locals.isAuth) { %>
+    <li><a href="/signup">Sign Up</a></li>
+    <li><a href="/login">Log In</a></li>
+    <% } %> <% if (locals.isAuth) { %>
+    <li>
+      <form action="/logout" method="POST">
+        <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>" />
+        <button>Log Out</button>
+      </form>
+    </li>
+    <% } %>
+  </ul>
+</aside>

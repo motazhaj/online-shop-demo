@@ -3,6 +3,7 @@
   --color-primary-dark: #528d3c;
   --color-secondary: #ef5000;
   --color-background: #2e2e2e;
+  --color-background-50: #2e2e2e7d;
 
   --shadow-default: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -53,6 +54,27 @@ body {
   font-weight: 700;
 }
 
+.side-navbar-toggle {
+  height: 2rem;
+}
+#side-navbar {
+  display: none;
+  position: fixed;
+  width: 60%;
+  height: 100%;
+  padding: 3.5rem;
+  top: 0;
+  right: 0;
+  background-color: var(--color-background-50);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+#side-navbar * {
+  list-style: none;
+  text-align: right;
+  color: white;
+  margin: 2rem 0;
+}
 #headline {
   padding: 3rem 0;
   display: flex;
