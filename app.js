@@ -3,22 +3,14 @@ const path = require("path");
 const express = require("express");
 const csrf = require("csurf");
 const session = require("express-session");
-const mongodbStore = require("connect-mongodb-session");
 
+const createSessionConfig = require("./config/session");
 const db = require("./data/database");
 const addCsrfToken = require("./middlewares/csrf-token");
 const shopRoutes = require("./routes/auth.routes");
 const errorHandle = require("./middlewares/error-handler");
 
-const MongoDBStore = mongodbStore(session);
-
 const app = express();
-
-const sessionStore = new MongoDBStore({
-  uri: "mongodb://127.0.0.1.:27017",
-  databaseName: "online-shop",
-  collection: "sessions",
-});
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -26,15 +18,9 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
-app.use(
-  session({
-    secret: "test",
-    resave: false,
-    saveUninitialized: false,
-    store: sessionStore,
-  })
-);
+const sessionConfig = createSessionConfig()
 
+app.use(session(sessionConfig));
 app.use(csrf());
 
 app.use(addCsrfToken);
