@@ -1,7 +1,7 @@
-const adminRoutes = require("../controllers/admin.controller")
+const adminController = require("../controllers/admin.controller")
 
-router.get("/dashboard", adminRoutes.getDashboard);
+router.get("/dashboard", adminController.getDashboard);
 
-router.get("/add-product", adminRoutes.getAddProduct);
+router.get("/add-product", adminController.getAddProduct);
 
-router.post("/add-product", adminRoutes.postAddProduct);
+router.post("/add-product", adminController.postAddProduct);
