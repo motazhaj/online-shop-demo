@@ -1,13 +1,13 @@
 const bcrypt = require("bcryptjs");
 
+const User = require("../models/user.model");
 const db = require("../data/database");
 
 function getLogin(req, res) {
-    res.render("customer/login");
+  res.render("customer/login");
 }
 
 async function postLogin(req, res) {
-    
   const userData = req.body;
   const inEmail = userData.email;
   const inPassword = userData.password;
@@ -66,20 +66,31 @@ function getSignup(req, res) {
 
 async function postSignup(req, res) {
   const userData = req.body;
-  const inName = userData.name;
   const inEmail = userData.email;
   const inPassword = userData.password;
   const inConfirmPassword = userData["confirm-password"];
+  const inName = userData.name;
+  const inCity = userData.city;
+  const inAddress = userData.address;
 
   req.session.inputData = {
     hasError: false,
     message: "",
     name: inName,
     email: inEmail,
+    city: inCity,
+    address: inAddress,
   };
 
   // Validation
-  if (!inName || !inEmail || !inPassword || !inConfirmPassword) {
+  if (
+    !inName ||
+    !inEmail ||
+    !inPassword ||
+    !inConfirmPassword ||
+    !inCity ||
+    !inAddress
+  ) {
     req.session.inputData.hasError = true;
     req.session.inputData.message = "Please fill all fields";
     req.session.save(() => {
@@ -117,14 +128,10 @@ async function postSignup(req, res) {
     return;
   }
 
-  const hashedPassword = await bcrypt.hash(inPassword, 12);
-  const user = {
-    name: inName,
-    email: inEmail,
-    password: hashedPassword,
-  };
+  const user = new User(inEmail, inPassword, inName, inCity, inAddress);
 
-  await db.getDb().collection("users").insertOne(user);
+  await user.signup()
+
   req.session.save(() => {
     res.redirect("/login");
   });
