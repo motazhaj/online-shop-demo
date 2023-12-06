@@ -8,6 +8,7 @@ const mongodbStore = require("connect-mongodb-session");
 const db = require("./data/database");
 const addCsrfToken = require("./middlewares/csrf-token");
 const shopRoutes = require("./routes/auth.routes");
+const errorHandle = require("./middlewares/error-handler");
 
 const MongoDBStore = mongodbStore(session);
 
@@ -64,6 +65,8 @@ app.get("/", (req, res) => {
 
 app.use(shopRoutes);
 
+app.use(errorHandle);
+
 db.connectToDatabase()
   .then(() => {
     app.listen(3000);
@@ -71,4 +74,5 @@ db.connectToDatabase()
   .catch((error) => {
     console.log("Failed to connect to Database");
     console.log(error);
+    res.render("shared/500");
   });
