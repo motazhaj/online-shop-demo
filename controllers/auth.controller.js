@@ -1,27 +1,33 @@
-const bcrypt = require("bcryptjs");
-
 const User = require("../models/user.model");
-const db = require("../data/database");
+const authUtil = require("../utilities/authentication")
 
 function getLogin(req, res) {
-  res.render("customer/login");
+  let sessionInputData = req.session.inputData;
+  if (!sessionInputData) {
+    sessionInputData = {
+      hasError: false,
+      message: "",
+      name: "",
+      email: "",
+    };
+  }
+
+  req.session.inputData = null;
+  res.render("customer/login", { inputData: sessionInputData });
 }
 
 async function postLogin(req, res) {
   const userData = req.body;
-  const inEmail = userData.email;
-  const inPassword = userData.password;
+  const user = new User(userData.email, userData.password);
 
   req.session.inputData = {
     hasError: false,
     message: "",
-    email: inEmail,
+    email: userData.email,
   };
 
-  const existingUser = await db
-    .getDb()
-    .collection("users")
-    .findOne({ email: inEmail });
+  const existingUser = await user.getUserByEmail();
+
   if (!existingUser) {
     req.session.inputData.hasError = true;
     req.session.inputData.message = "User doesnt exist";
@@ -31,7 +37,7 @@ async function postLogin(req, res) {
     return;
   }
 
-  const passwordMatch = await bcrypt.compare(inPassword, existingUser.password);
+  const passwordMatch = user.matchPassword(existingUser.password);
 
   if (!passwordMatch) {
     req.session.inputData.hasError = true;
@@ -42,10 +48,10 @@ async function postLogin(req, res) {
     return;
   }
 
-  req.session.isAuthenticated = true;
-  req.session.save(() => {
-    res.redirect("/");
-  });
+  authUtil.createUserSession(req,existingUser, () =>{
+    res.redirect("/")
+  })
+
 }
 
 function getSignup(req, res) {
@@ -122,10 +128,7 @@ async function postSignup(req, res) {
     });
     return;
   }
-  const existingUser = await db
-    .getDb()
-    .collection("users")
-    .findOne({ email: inEmail });
+  const existingUser = await user.getUserByEmail();
 
   if (existingUser) {
     req.session.inputData.hasError = true;

@@ -11,6 +11,10 @@ class User {
     this.address = address;
   }
 
+  getUserByEmail() {
+    return db.getDb().collection("users").findOne({ email: this.email });
+  }
+
   async signup() {
     const hashedPassword = await bcrypt.hash(this.password, 12);
 
@@ -21,6 +25,10 @@ class User {
       city: this.city,
       address: this.address,
     });
+  }
+
+  matchPassword(hashedPassword) {
+    return bcrypt.compare(this.password, hashedPassword)
   }
 }
 

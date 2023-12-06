@@ -7,13 +7,16 @@
     <li><a href="/dashboard">Dashboard</a></li>
     <% } %>
     <li><a href="">About</a></li>
-    <% if (!locals.isAuthenticated) { %>
+    <% if (!locals.isAuth) { %>
     <li><a href="/signup">Sign Up</a></li>
     <li><a href="login">Log In</a></li>
-    <% } %> <% if (locals.isAuthenticated) { %>
+    <% } %> <% if (locals.isAuth) { %>
     <li><a href="">My Cart</a></li>
     <li>
-      <form action="logout" method="POST"><button>Log Out</button></form>
+      <form action="logout" method="POST">
+        <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+        <button>Log Out</button>
+      </form>
     </li>
     <% } %>
   </ul>
