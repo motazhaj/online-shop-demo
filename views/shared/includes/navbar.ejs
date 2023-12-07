@@ -1,11 +1,11 @@
 <nav id="navbar">
-  <h1 id="nav-logo"><a href="/"><img src="images/navbar/greenhouse-w.png" alt="" /></a></h1>
-  <a href="#side-navbar"
-    ><img class="side-navbar-toggle" src="images/navbar/menu.png" alt="Logo"
-  /></a>
+  <h1 id="nav-logo">
+    <a href="/"><img src="images/navbar/greenhouse-w.png" alt="" /></a>
+  </h1>
+  <button id="menu-toggle">
+    <img src="images/navbar/menu.png" alt="Logo"/>
+  </button>
   <%- include("nav-items") %>
 </nav>
 <hr id="navbar-line" />
-<aside id="side-navbar">
-  <%- include("nav-items") %>
-</aside>
+<aside id="side-navbar"><%- include("nav-items") %></aside>
