@@ -64,13 +64,16 @@
   right: 0;
   bottom: 5rem;
   border-radius: 16px;
-  background-color: var(--color-background-50);
+  background-color: var(--color-background-80);
   backdrop-filter: blur(10px);
   text-align: center;
 }
 
 #side-navbar ul {
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: auto;
 }
 
