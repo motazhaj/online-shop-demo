@@ -19,7 +19,7 @@
   justify-content: space-between;
 }
 
-.nav-item,#logout-button {
+.nav-item {
   margin: 0 1rem;
   cursor: pointer;
   display: block;
@@ -28,8 +28,22 @@
   border-width: 0;
 }
 
+#logout-button {
+  margin: 0 1rem;
+  padding: .5rem;
+  cursor: pointer;
+  display: block;
+  font-size: 1.1rem;
+  background: none;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 8px;
+  border-color: var(--color-primary-dark);
+}
+
 #logout-button:hover {
-  color: var(--color-primary);
+  background-color: var(--color-primary);
+  transition: 200ms;
 }
 
 #nav-logo img {
