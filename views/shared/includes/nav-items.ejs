@@ -1,0 +1,22 @@
+<ul>
+  <li class="nav-item"><a href="/">All Products</a></li>
+
+  <% if (locals.isAdmin) { %>
+  <li class="nav-item"><a href="/dashboard">Dashboard</a></li>
+  <% } %>
+
+  <li class="nav-item"><a href="">About</a></li>
+  <li class="nav-item"><a href="/cart">My Cart</a></li>
+
+  <% if (!locals.isAuth) { %>
+  <li class="nav-item"><a href="/signup">Sign Up</a></li>
+  <li class="nav-item"><a href="/login">Log In</a></li>
+  <% } %> <% if (locals.isAuth) { %>
+  <li>
+    <form action="/logout" method="POST">
+      <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>" />
+      <button id="logout-button">Log Out</button>
+    </form>
+  </li>
+  <% } %>
+</ul>
