@@ -22,7 +22,17 @@ function getManageOrders(req, res) {
 }
 
 function postManageProducts(req, res) {
-  res.redirect("admin/products");
+  res.redirect("/products");
+}
+
+function getManageCategory(req, res) {
+  res.render("admin/manage-categories");
+}
+
+function postManageCategory(req, res) {
+  const title = req.body;
+  console.log(title);
+  res.redirect("/admin/categories");
 }
 
 module.exports = {
@@ -30,4 +40,6 @@ module.exports = {
   getManageProduct: getManageProduct,
   postManageProducts: postManageProducts,
   getManageOrders: getManageOrders,
+  getManageCategory: getManageCategory,
+  postManageCategory: postManageCategory,
 };

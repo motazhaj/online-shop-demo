@@ -3,17 +3,16 @@
 </head>
 <body>
     <%- include("../shared/includes/navbar.ejs")  %>
-    <section id="headline"><h1>Welcome to the shop</h1></section>
-    <section>
-        <ul id="products-list">
-            
-        </ul>
-    </section>
+    <section id="headline"><h1><span class="highlight-text-secondary"><%= locals.name %>'s</span> Dashboard</h1></section>
+    
     <section>
         <a class="default-button" href="/admin/products">Manage Products</a>
     </section>
     <section>
         <a class="default-button" href="/admin/orders">Manage Orders</a>
+    </section>
+    <section>
+        <a class="default-button" href="/admin/categories">Manage Categories</a>
     </section>
 </body>
 </html>
