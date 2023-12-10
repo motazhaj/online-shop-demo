@@ -6,7 +6,10 @@
   <% } %>
 
   <li class="nav-item"><a href="">About</a></li>
+
+  <% if (!locals.isAdmin && locals.isAuth) { %>
   <li class="nav-item"><a href="/cart">My Cart</a></li>
+  <% } %>
 
   <% if (!locals.isAuth) { %>
   <li class="nav-item"><a href="/signup">Sign Up</a></li>
