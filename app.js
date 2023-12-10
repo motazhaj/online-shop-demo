@@ -12,6 +12,7 @@ const errorHandle = require("./middlewares/error-handler");
 const checkAuth = require("./middlewares/check-auth");
 
 const shopRoutes = require("./routes/auth.routes");
+const adminRoutes = require("./routes/admin.routes");
 
 const app = express();
 
@@ -28,13 +29,14 @@ app.use(csrf());
 
 app.use(addCsrfToken);
 
-app.use(checkAuth)
+app.use(checkAuth);
 
 app.get("/", (req, res) => {
   res.render("customer/shop");
 });
 
 app.use(shopRoutes);
+app.use("/admin", adminRoutes);
 
 app.use(errorHandle);
 

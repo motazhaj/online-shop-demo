@@ -2,16 +2,32 @@ function getDashboard(req, res) {
   res.render("admin/dashboard");
 }
 
-function getAddProduct(req, res) {
-  res.render("admin/add-product");
+function getManageProduct(req, res) {
+  let sessionInputData = req.session.inputData;
+  if (!sessionInputData) {
+    sessionInputData = {
+      hasError: false,
+      message: "",
+      name: "",
+      email: "",
+    };
+  }
+
+  req.session.inputData = null;
+  res.render("admin/manage-products", { inputData: sessionInputData });
 }
 
-function postAddProduct(req, res) {
-  res.redirect("/add-product");
+function getManageOrders(req, res) {
+  res.render("admin/manage-orders");
+}
+
+function postManageProducts(req, res) {
+  res.redirect("admin/products");
 }
 
 module.exports = {
   getDashboard: getDashboard,
-  getAddProduct: getAddProduct,
-  postAddProduct: postAddProduct,
+  getManageProduct: getManageProduct,
+  postManageProducts: postManageProducts,
+  getManageOrders: getManageOrders,
 };
