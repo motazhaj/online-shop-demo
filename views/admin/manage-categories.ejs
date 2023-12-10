@@ -16,6 +16,7 @@
     <section>
         <form class="default-form" action="/admin/categories/new" method="post">
             <h1>Add a Category</h1>
+            <p class="error-message"><%= inputData.message %></p>
             <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
             <input type="text" placeholder="Title" name="title" id="title" required>
             
