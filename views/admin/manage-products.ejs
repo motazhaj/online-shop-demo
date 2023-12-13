@@ -52,10 +52,9 @@
         </ul>
     </section>
     <section>
-        <form class="default-form" action="/admin/products/new" method="post">
+        <form class="default-form" action="/admin/products/new?_csrf=<%= locals.csrfToken %>" method="post" enctype="multipart/form-data">
             <h1>Add a product</h1>
             <p class="error-message"><%= inputData.message %></p>
-            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
             <input type="text" placeholder="Title" name="title" id="title" required>
             <label for="image">Image</label>
             <input type="file" name="image" id="image" accept="image/png,image/jpg" required>
