@@ -1,16 +1,21 @@
 <%- include('../shared/includes/head.ejs', { title: "Online Shop Demo" }) %>
     <link rel="stylesheet" href="/styles/form.css">
+    <link rel="stylesheet" href="/styles/categories.css">
 </head>
 <body>
     <%- include("../shared/includes/navbar.ejs")  %>
     <section id="headline"><h1>Manage Categories</h1></section>
     <section>
-        <h1>Category list</h1>
-        <ul id="Category">
-            <li>
-                <h1>Item 1</h1>
-                <p>Items in list: <span class="highlight-text-secondary">0</span></p>
-            </li>
+        <h2>Category list</h2>
+        <ul class="def-list">
+            <% for (const item in categories) { %>
+                <li target class="categorybtn"> 
+                    <%= categories[item].charAt(0).toUpperCase() + categories[item].slice(1) %>
+                    <button class="material-symbols-outlined edit-categories">
+                        more_horiz
+                    </button>
+                </li>
+            <% } %>
         </ul>
     </section>
     <section>

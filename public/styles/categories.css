@@ -1,0 +1,36 @@
+.categorybtn {
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 16px;
+  margin: auto;
+  background: none;
+  border-color: var(--color-primary-dark);
+  min-width: 200px;
+  min-height: 4rem;
+  align-items: center;
+  box-shadow: var(--shadow-default);
+  border-style: solid;
+  transition: 200ms;
+}
+
+.categorybtn:hover {
+  background: var(--color-lightgray);
+}
+
+.edit-categories {
+  display: none;
+  background: var(--color-primary-dark);
+  border-style: none;
+  border-radius: 8px;
+  width: 2rem;
+}
+
+.categorybtn:hover .edit-categories {
+  display: block;
+}
+
+.edit-categories:hover {
+  background-color: var(--color-primary);
+}

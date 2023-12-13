@@ -5,6 +5,10 @@ class Category {
     this.title = title.toLowerCase();
   }
 
+  static getCategories() {
+    return db.getDb().collection("categories").distinct("title");
+  }
+
   getCategoryByName() {
     return db.getDb().collection("categories").findOne({ title: this.title });
   }

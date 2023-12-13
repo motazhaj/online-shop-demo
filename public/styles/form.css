@@ -20,7 +20,7 @@ form hr {
 form h1 {
   font-size: 2rem;
   margin-inline: auto;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 form p {
@@ -29,8 +29,9 @@ form p {
 }
 
 input,
-select {
-  height: 2.5rem;
+select,
+textarea {
+  min-height: 2.5rem;
   font-size: 1.4rem;
   margin: 0.5rem 0;
   padding: 0.4rem;
@@ -42,6 +43,10 @@ select {
 
 option {
   color: black;
+}
+
+select:required:invalid {
+  color: var(--color-gray-80);
 }
 
 .error-message {
@@ -67,6 +72,6 @@ option {
 
   form p {
     margin: auto;
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 }

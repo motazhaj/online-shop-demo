@@ -4,7 +4,7 @@ function getDashboard(req, res) {
   res.render("admin/dashboard");
 }
 
-function getManageProducts(req, res) {
+async function getManageProducts(req, res) {
   let sessionInputData = req.session.inputData;
   if (!sessionInputData) {
     sessionInputData = {
@@ -16,18 +16,24 @@ function getManageProducts(req, res) {
   }
 
   req.session.inputData = null;
-  res.render("admin/manage-products", { inputData: sessionInputData });
+
+  const categories = await Category.getCategories();
+
+  res.render("admin/manage-products", {
+    inputData: sessionInputData,
+    categories: categories,
+  });
 }
 
 function getManageOrders(req, res) {
   res.render("admin/manage-orders");
 }
 
-function postManageProducts(req, res) {
+async function postManageProducts(req, res) {
   res.redirect("/products");
 }
 
-function getManageCategory(req, res) {
+async function getManageCategory(req, res) {
   let sessionInputData = req.session.inputData;
   if (!sessionInputData) {
     sessionInputData = {
@@ -38,7 +44,15 @@ function getManageCategory(req, res) {
   }
 
   req.session.inputData = null;
-  res.render("admin/manage-categories", { inputData: sessionInputData });
+
+  const categories = await Category.getCategories();
+
+  req.session.inputData = null;
+
+  res.render("admin/manage-categories", {
+    inputData: sessionInputData,
+    categories: categories,
+  });
 }
 
 async function postManageCategory(req, res) {
@@ -53,7 +67,7 @@ async function postManageCategory(req, res) {
 
   const existingCategoryBool = await category.getCategoryByName();
 
-  console.log(existingCategoryBool)
+  console.log(existingCategoryBool);
 
   if (existingCategoryBool) {
     req.session.inputData.hasError = true;

@@ -2,8 +2,10 @@
   --color-primary: #5db500;
   --color-primary-dark: #528d3c;
   --color-secondary: #ef5000;
-  --color-background: #2e2e2e;
-  --color-background-80: #2e2e2ed8;
+  --color-gray: #2e2e2e;
+  --color-gray-80: #2e2e2ea0;
+  --color-lightgray: #676767;
+
 
   --shadow-default: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -13,7 +15,7 @@
   padding: 0;
   text-decoration: none;
   color: white;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   box-sizing: border-box;
 }
 
@@ -26,7 +28,7 @@ body {
   width: 1200px;
   max-width: 95%;
   margin: 0 auto;
-  background-color: var(--color-background);
+  background-color: var(--color-gray);
 }
 
 #headline {
@@ -48,11 +50,15 @@ body {
   color: var(--color-secondary);
 }
 
+.highlight-text-gray {
+  color: var(--color-gray-80);
+}
+
 #products-list {
   list-style: none;
   display: grid;
   width: fit-content;
-  margin-inline: auto;
+  margin:1rem auto;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 }
@@ -86,8 +92,16 @@ body {
   background-color: var(--color-secondary);
 }
 
+.def-list {
+  list-style: none;
+  display: grid;
+  width: fit-content;
+  margin:1rem auto;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
 @media screen and (max-width: 1350px) {
- 
   .product {
     height: 180px;
     width: 180px;
@@ -98,13 +112,13 @@ body {
 }
 
 @media screen and (max-width: 1100px) {
-  #products-list {
+  #products-list,.def-list {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media screen and (max-width: 850px) {
-  #products-list {
+  #products-list,.def-list {
     grid-template-columns: repeat(3, 1fr);
   }
   .default-button {
@@ -114,7 +128,7 @@ body {
 }
 
 @media screen and (max-width: 650px) {
-  #products-list {
+  #products-list,.def-list {
     grid-template-columns: repeat(2, 1fr);
   }
   .product {
