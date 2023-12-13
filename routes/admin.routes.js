@@ -1,13 +1,18 @@
 const express = require("express");
 
 const adminController = require("../controllers/admin.controller");
+const imageUploadMiddleware = require("../middlewares/file-upload");
 
 const router = express.Router();
 
 router.get("/dashboard", adminController.getDashboard);
 
 router.get("/products", adminController.getManageProducts);
-router.post("/products/new", adminController.postManageProducts);
+router.post(
+  "/products/new",
+  imageUploadMiddleware,
+  adminController.postManageProducts
+);
 
 router.get("/orders", adminController.getManageOrders);
 
