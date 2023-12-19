@@ -10,8 +10,10 @@ async function getManageProducts(req, res) {
     sessionInputData = {
       hasError: false,
       message: "",
-      name: "",
-      email: "",
+      title: "",
+      description: "",
+      price: 0,
+      category: "",
     };
   }
 
@@ -25,12 +27,11 @@ async function getManageProducts(req, res) {
   });
 }
 
-function getManageOrders(req, res) {
-  res.render("admin/manage-orders");
-}
-
 async function postManageProducts(req, res) {
-  res.redirect("/products");
+  console.log(req.body);
+  console.log(req.file);
+
+  res.redirect("/admin/products");
 }
 
 async function getManageCategory(req, res) {
@@ -89,6 +90,10 @@ async function postManageCategory(req, res) {
     res.redirect("/admin/categories");
   });
   return;
+}
+
+function getManageOrders(req, res) {
+  res.render("admin/manage-orders");
 }
 
 module.exports = {
