@@ -4,24 +4,33 @@ class Product {
   constructor(productData) {
     this.title = productData.title;
     this.category = productData.category;
+    this.categoryID = productData.categoryID;
     this.description = productData.description;
     this.price = productData.price;
     this.image = productData.image;
     this.imagePath = `/data/product-images/${productData.image}`;
     this.imageURL = `/products/assets/images/${productData.image}`;
+    this.id = productData._id.toString();
+  }
+
+  static async findAll() {
+    const products = await db.getDb().collection("products").find().toArray();
+
+    return products.map((productDoc) => {
+      return new Product(productDoc);
+    });
   }
 
   async save() {
     const productData = {
       title: this.title,
       category: this.category,
+      categoryID: this.categoryID,
       description: this.description,
       price: this.price,
       image: this.image,
-      imagePath: this.imagePath,
-      imageURL: this.imageURL,
     };
-    
+
     await db.getDb().collection("products").insertOne(productData);
   }
 }
