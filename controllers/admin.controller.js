@@ -28,7 +28,7 @@ async function getManageProducts(req, res) {
   });
 }
 
-async function postManageProducts(req, res) {
+async function postManageProducts(req, res, next) {
   const category = new Category(req.body.category);
 
   req.session.inputData = {
@@ -92,7 +92,7 @@ async function getManageCategory(req, res) {
   });
 }
 
-async function postManageCategory(req, res) {
+async function postManageCategory(req, res, next) {
   const userData = req.body;
   const category = new Category(userData.title);
 
