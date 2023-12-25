@@ -1,4 +1,5 @@
 const Category = require("../models/category.model");
+const Product = require("../models/product.model");
 
 function getDashboard(req, res) {
   res.render("admin/dashboard");
@@ -28,8 +29,40 @@ async function getManageProducts(req, res) {
 }
 
 async function postManageProducts(req, res) {
-  console.log(req.body);
-  console.log(req.file);
+  const category = new Category(req.body.category);
+
+  req.session.inputData = {
+    hasError: false,
+    message: "",
+    title: req.body.title,
+    description: req.body.description,
+    price: req.body.price,
+    category: req.body.Category,
+  };
+
+  const existingCategoryBool = await category.getCategoryByName();
+
+  if (!existingCategoryBool) {
+    req.session.inputData.hasError = true;
+    req.session.inputData.message = "Category does not exists";
+    req.session.save(() => {
+      res.redirect("/admin/products");
+    });
+    return;
+  }
+
+  const product = new Product({
+    ...req.body,
+    image: req.file.filename,
+  });
+
+  try {
+    await product.save();
+  } catch (error) {
+    next();
+    return;
+  }
+  console.log(product);
 
   res.redirect("/admin/products");
 }
