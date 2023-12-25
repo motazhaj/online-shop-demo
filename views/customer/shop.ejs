@@ -1,5 +1,6 @@
 <%- include('../shared/includes/head', { title: "Online Shop Demo" }) %>
     
+<link rel="stylesheet" href="styles/product.css">
 </head>
 <body>
     <%- include("../shared/includes/navbar")  %>
@@ -7,7 +8,11 @@
         <h1>Welcome to <span class="highlight-text-primary">Green House</span>  <span class="highlight-text-secondary"><%= locals.name %></span></h1>
     </section>
     <section>
-        <%- include("../shared/includes/products-list") %>
+        <ul id="products-list">
+            <% for(const item of products) { %>
+                <%- include("../shared/includes/product-item",{item: item}) %>
+            <% } %>
+        </ul>
     </section>
 </body>
 </html>

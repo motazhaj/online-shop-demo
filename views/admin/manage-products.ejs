@@ -6,9 +6,7 @@
     <section id="headline"><h1>Manage Products</h1></section>
     <section>
         <h1>Product list</h1>
-        <ul id="products-list">
-            <%- include("../shared/includes/product-item") %>
-        </ul>
+       
     </section>
     <section>
         <form class="default-form" action="/admin/products/new?_csrf=<%= locals.csrfToken %>" method="post" enctype="multipart/form-data">
