@@ -11,6 +11,7 @@ const addCsrfToken = require("./middlewares/csrf-token");
 const errorHandle = require("./middlewares/error-handler");
 const checkAuth = require("./middlewares/check-auth");
 
+const mainRoutes = require("./routes/main.routes");
 const shopRoutes = require("./routes/auth.routes");
 const adminRoutes = require("./routes/admin.routes");
 
@@ -31,10 +32,7 @@ app.use(addCsrfToken);
 
 app.use(checkAuth);
 
-app.get("/", (req, res) => {
-  res.render("customer/shop");
-});
-
+app.use(mainRoutes);
 app.use(shopRoutes);
 app.use("/admin", adminRoutes);
 
