@@ -9,8 +9,10 @@ class Product {
     this.price = productData.price;
     this.image = productData.image;
     this.imagePath = `/data/product-images/${productData.image}`;
-    this.imageURL = `/products/assets/images/${productData.image}`;
-    this.id = productData._id.toString();
+    this.imageURL = `/data/product-images/${productData.image}`;
+    if (productData._id) {
+      this.id = productData._id.toString();
+    }
   }
 
   static async findAll() {
