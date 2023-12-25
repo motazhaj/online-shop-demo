@@ -40,9 +40,10 @@ async function postManageProducts(req, res) {
     category: req.body.Category,
   };
 
-  const existingCategoryBool = await category.getCategoryByName();
+  const existingCategory = await category.getCategoryByName();
+  const categoryID = existingCategory._id.toString()
 
-  if (!existingCategoryBool) {
+  if (!existingCategory) {
     req.session.inputData.hasError = true;
     req.session.inputData.message = "Category does not exists";
     req.session.save(() => {
@@ -53,11 +54,13 @@ async function postManageProducts(req, res) {
 
   const product = new Product({
     ...req.body,
+    categoryID: categoryID,
     image: req.file.filename,
   });
 
   try {
     await product.save();
+    console.log("Product Added Successfully")
   } catch (error) {
     next();
     return;
