@@ -6,6 +6,15 @@ function getDashboard(req, res) {
 }
 
 async function getManageProducts(req, res) {
+  let products;
+  
+  try {
+    products = await Product.findAll();
+  } catch (error) {
+    next();
+    return;
+  }
+
   let sessionInputData = req.session.inputData;
   if (!sessionInputData) {
     sessionInputData = {
@@ -25,6 +34,7 @@ async function getManageProducts(req, res) {
   res.render("admin/manage-products", {
     inputData: sessionInputData,
     categories: categories,
+    products: products,
   });
 }
 
@@ -41,7 +51,7 @@ async function postManageProducts(req, res, next) {
   };
 
   const existingCategory = await category.getCategoryByName();
-  const categoryID = existingCategory._id.toString()
+  const categoryID = existingCategory._id.toString();
 
   if (!existingCategory) {
     req.session.inputData.hasError = true;
@@ -60,7 +70,7 @@ async function postManageProducts(req, res, next) {
 
   try {
     await product.save();
-    console.log("Product Added Successfully")
+    console.log("Product Added Successfully");
   } catch (error) {
     next();
     return;

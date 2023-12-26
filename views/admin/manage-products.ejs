@@ -1,12 +1,17 @@
 <%- include('../shared/includes/head.ejs', { title: "Online Shop Demo" }) %>
     <link rel="stylesheet" href="/styles/form.css">
+    <link rel="stylesheet" href="/styles/product.css">
 </head>
 <body>
     <%- include("../shared/includes/navbar.ejs")  %>
     <section id="headline"><h1>Manage Products</h1></section>
     <section>
         <h1>Product list</h1>
-       
+        <ul id="products-list">
+            <% for(const item of products) { %>
+                <%- include("../shared/includes/product-item",{item: item}) %>
+            <% } %>
+        </ul>
     </section>
     <section>
         <form class="default-form" action="/admin/products/new?_csrf=<%= locals.csrfToken %>" method="post" enctype="multipart/form-data">
