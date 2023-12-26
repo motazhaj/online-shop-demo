@@ -7,7 +7,7 @@ function getDashboard(req, res) {
 
 async function getManageProducts(req, res) {
   let products;
-  
+
   try {
     products = await Product.findAll();
   } catch (error) {
@@ -142,6 +142,32 @@ function getManageOrders(req, res) {
   res.render("admin/manage-orders");
 }
 
+async function getEditProduct(req, res, next) {
+  let product;
+  try {
+    product = await Product.findByID(req.params.id);
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  let categories;
+  try {
+    categories = await Category.getCategories();
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  res.render("admin/update-product", {
+    inputData: sessionInputData,
+    categories: categories,
+    product: product,
+  });
+}
+
+function postEditProduct(req, res) {}
+
 module.exports = {
   getDashboard: getDashboard,
   getManageProducts: getManageProducts,
@@ -149,4 +175,6 @@ module.exports = {
   getManageOrders: getManageOrders,
   getManageCategory: getManageCategory,
   postManageCategory: postManageCategory,
+  getEditProduct: getEditProduct,
+  postEditProduct: postEditProduct,
 };
