@@ -160,7 +160,6 @@ async function getEditProduct(req, res, next) {
   }
 
   res.render("admin/update-product", {
-    inputData: sessionInputData,
     categories: categories,
     product: product,
   });
