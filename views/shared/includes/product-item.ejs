@@ -5,11 +5,15 @@
     </div>
     <div id="title">
       <h2><%= item.title %></h2>
-      <h3><%= item.category %></h3>
+      <h3><%= item.category.charAt(0).toUpperCase() + item.category.slice(1) %></h3>
     </div>
     <div id="price">
       <p><%= item.price %>₪</p>
-      <button>+</button>
+        <% if (locals.isAdmin) { %>
+          <a href="/admin/products/edit/<%= item.id %>">Edit</a>
+        <% } else { %>
+          <button>+</button>
+        <% } %>
     </div>
   </card>
 </li>
