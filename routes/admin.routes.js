@@ -19,4 +19,8 @@ router.get("/orders", adminController.getManageOrders);
 router.get("/categories", adminController.getManageCategory);
 router.post("/categories/new", adminController.postManageCategory);
 
+router.get("/products/edit/:id", adminController.getEditProduct)
+router.post("/products/edit/:id", adminController.postEditProduct)
+
+
 module.exports = router;
