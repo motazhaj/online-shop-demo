@@ -1,0 +1,21 @@
+<form class="default-form" action="<%= formAction %>?_csrf=<%= locals.csrfToken %>" method="post" enctype="multipart/form-data">
+    <h1><%= formTitle %></h1>
+    <input type="text" placeholder="Title" name="title" id="title" value="<%= product.title %>" required>
+    <label for="image">Image</label>
+    <input type="file" name="image" id="image" accept="image/png,image/jpg" required>
+    <select type="text" name="category" id="category" value="<%= product.category %>" required>
+        <option class="highlight-text-gray" value="">Pick Category</option>
+        <% for (const i in categories) { %>
+            <option 
+                <% if (product.category === categories[i]) { %>
+                    selected
+                <% } %>> 
+                <%= categories[i].charAt(0).toUpperCase() + categories[i].slice(1) %> 
+            </option>
+        <% } %>
+    </select>
+    <hr>
+    <textarea rows="7" placeholder="Product description" name="description" id="description" maxlength="250" required><%= product.description %></textarea>
+    <input type="number" placeholder="Price" name="price" id="price" min="0.1" step="0.1" value="<%= product.price %>" required>
+    <button class="default-button" type="submit"><%= formButton %></button>
+</form>

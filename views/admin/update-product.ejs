@@ -1,0 +1,16 @@
+<%- include('../shared/includes/head.ejs', { title: "Online Shop Demo" }) %>
+    <link rel="stylesheet" href="/styles/form.css">
+</head>
+<body>
+    <%- include("../shared/includes/navbar.ejs")  %>
+    <section id="headline"><h1>Update Product Page</h1></section>
+    <section>
+    <%- include("../shared/includes/product-form.ejs",{
+            formTitle: "Update Product Form", 
+            formButton: "Update Product", 
+            formAction: "/admin/products/edit" + product._id,
+            product: product
+        })  %>
+    </section>
+</body>
+</html>
