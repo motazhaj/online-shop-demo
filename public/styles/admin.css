@@ -1,0 +1,19 @@
+.admin-button {
+  height: 3rem;
+  font-size: 2rem;
+  max-width: fit-content;
+  padding: 0.2rem 1rem;
+  margin: 0.5rem 1rem;
+  background-color: var(--color-primary-dark);
+  border-style: none;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: var(--shadow-default);
+  transition: 200ms ease;
+}
+
+.admin-button:hover{
+    color: var(--color-secondary);
+    scale: 1.1;
+    transition: 200ms ease;
+}

@@ -55,6 +55,12 @@ body {
   color: var(--color-gray-80);
 }
 
+.def-flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .default-button {
   height: 3rem;
   font-size: 2rem;

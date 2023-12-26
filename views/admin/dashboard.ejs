@@ -1,18 +1,14 @@
 <%- include('../shared/includes/head.ejs', { title: "Online Shop Demo" }) %>
-    
+    <link rel="stylesheet" href="/styles/admin.css">
 </head>
 <body>
     <%- include("../shared/includes/navbar.ejs")  %>
     <section id="headline"><h1><span class="highlight-text-secondary"><%= locals.name %>'s</span> Dashboard</h1></section>
     
-    <section>
-        <a class="default-button" href="/admin/products">Manage Products</a>
-    </section>
-    <section>
-        <a class="default-button" href="/admin/orders">Manage Orders</a>
-    </section>
-    <section>
-        <a class="default-button" href="/admin/categories">Manage Categories</a>
+    <section class="def-flex">
+            <a class="admin-button" href="/admin/products">Manage Products</a>
+            <a class="admin-button" href="/admin/categories">Manage Categories</a>
+            <a class="admin-button" href="/admin/orders">Manage Orders</a>
     </section>
 </body>
 </html>
