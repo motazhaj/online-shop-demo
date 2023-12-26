@@ -23,11 +23,12 @@
 }
 
 .product:hover {
+  cursor: pointer;
   transform: translateY(-5px);
 }
 
 .product img {
-  width: 100%; /* Full width of the card */
+  width: 100%;
   object-fit: fill;
   object-fit: cover;
   object-position: center;
@@ -72,7 +73,7 @@
   font-weight: bold;
 }
 
-.product button {
+.product button, .product a{
   background-color: green;
   color: white;
   padding: 0.2rem 0.6rem;
@@ -84,8 +85,9 @@
   transition: 0.2s ease;
 }
 
-.product button:hover {
-  background-color: #026e00; /* Darker green on hover */
+.product button:hover, .product a:hover {
+  scale: 1.1;
+  background-color: #026e00;
 }
 
 @media screen and (max-width: 1100px) {
